@@ -1,0 +1,102 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+        .link-button-wrapper {
+			    width: 130px;
+			    height: 50px;
+			    box-shadow: inset 0px 1px 0px 0px #ffffff;
+			    border-radius: 6px;
+			    background-color: #f0ad4e;
+			    box-shadow: 0px 2px 4px gray;
+			    display: block;			    	
+			    padding: .5em 2em;
+			    border-width: 2px 0;
+			    border: 1px solid transparent;
+			    transition: 0.2s;
+			}
+			.link-button-wrapper > a {
+			    display: inline-table;
+			    cursor: pointer;
+			    text-decoration: none;
+			    height: 100%;
+			    width:100%;
+			    font-size: 25px;
+			    color:#fff;
+			    text-align: center;
+			}
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+            </div>
+        </div>
+        
+        
+         <!-- FACEBOOK INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user.facebook.id %><br>
+                        <strong>token</strong>: <%= user.facebook.token %><br>
+                        <strong>email</strong>: <%= user.facebook.email %><br>
+                        <strong>name</strong>: <%= user.facebook.name %>
+                    </p>
+
+            </div>
+        </div>
+        
+        
+        <!-- GOOGLE INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user.google.id %><br>
+                        <strong>token</strong>: <%= user.google.token %><br>
+                        <strong>email</strong>: <%= user.google.email %><br>
+                        <strong>name</strong>: <%= user.google.name %>
+                    </p>
+
+            </div>
+        </div>
+        
+
+    </div>
+    
+     <div class="link-button-wrapper">
+				<a class='nostyle' href='http://localhost:8080/consent'>
+				    <span class='button'>MyApp</span>
+				</a>
+	</div>
+
+</div>
+</body>
+</html>

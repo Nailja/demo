@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+    <html>
+      <head>
+        <title>Demo Init</title>
+            <link rel="stylesheet" type="text/css" href="//localhost:8080/easyrtc/easyrtc.css" />
+     
+        <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+          
+        <script src="//localhost:8080/socket.io/socket.io.js"></script>
+          <script type="text/javascript" src="//localhost:8080/easyrtc/easyrtc.js"></script>
+      
+      <style type="text/css">
+			body {
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			#hr {
+				bottom:80px;
+				position:absolute;
+				width: 100%;
+			}
+			#logos {
+				position:fixed;
+				bottom:0px;
+				left:0%;		
+			}
+			#name {
+				font-size: 250%;
+				position: relatif;			
+			}
+			.link-button-wrapper {
+			    width: 70px;
+			    height: 30px;
+			    box-shadow: inset 0px 1px 0px 0px #ffffff;
+			    border-radius: 6px;
+			    background-color: #f0ad4e ;
+			    box-shadow: 0px 2px 4px gray;
+			    display: block;			    	
+			    padding: .5em 2em;
+			    border-width: 2px 0;
+			    border:  1px solid transparent;
+			    transition: 0.2s;
+			    margin-bottom: 0;
+			    padding: 6px 12px;
+			}
+			.link-button-wrapper > a {
+			    display: inline-table;
+			    cursor: pointer;
+			    text-decoration: none;
+			    height: 100%;
+			    width:100%;
+			    font-size: 20px;
+			    line-height: 1.33;
+			    color:#fff;
+			    text-align: center;
+			}
+        </style>
+	  </head>
+      <body>
+			<div id="name">
+				<strong>MyApp</strong>
+			</div>
+			<br />
+			<br />
+			<br />
+            <div class="link-button-wrapper">
+				<a class='nostyle' href='http://localhost:8080/MyAppLogin'>
+				    <span class='button'>Login</span>
+				</a>
+			</div>
+     		<br />
+			<br />
+			<br />
+             
+			<div id="hr"><hr /></div>
+			<div id="logos">
+			  <img src="/img/easyrtc.png" alt="easy" > 
+			  <img src="/img/rethink.png" alt="re" > 
+			</div>
+      </body>
+    </html>

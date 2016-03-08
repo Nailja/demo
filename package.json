@@ -1,0 +1,34 @@
+{
+  "name": "easyrtc_server_example",
+  "version": "0.1.6",
+  "author": "Priologic Software Inc. <info@priologic.com> (http://priologic.com/)",
+  "description": "Simple EasyRTC server example which includes EasyRTC, Express, and Socket.io",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "latest",
+    "body-parser": "~1.0.0",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "~1.0.0",
+    "easyrtc": "1.0.x",
+    "ejs": "~0.8.5",
+    "express": "*",
+    "express-session": "~1.0.0",
+    "method-override": "~1.0.0",
+    "mongoose": "~3.8.1",
+    "morgan": "~1.0.0",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2",
+    "socket.io": "0.9.x",
+    "tunnel": "0.0.4"
+  },
+  "license": "BSD2",
+  "engines": {
+    "node": ">=0.8"
+  }
+}
