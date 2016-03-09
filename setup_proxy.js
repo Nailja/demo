@@ -3,7 +3,12 @@ var env = process.env;
 if (!env['http_proxy']) return;
 
 var localUrls = [
-  'http://some-internal-url.mycompany.local',
+  'http://localhost',
+  'https://localhost',
+  'localhost',
+  'http://127.0.0.1',
+  'https://127.0.0.1',
+  '127.0.0.1'
 ];
 
 var url    = require('url');
@@ -33,7 +38,7 @@ https.request = function (options, callback) {
   return oldhttpsreq.call(null, options, callback);
 };
 
-var oldhttpreq = https.request;
+var oldhttpreq = http.request;
 http.request = function (options, callback) {
 
   if (localUrls.some(function (u) {

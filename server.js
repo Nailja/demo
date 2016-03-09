@@ -4,8 +4,8 @@ var tunnel = require('./setup_proxy');
 //require( './db_userData' );
 
 // Load required modules
-var https = require('https'); 				// http server core module
-var http    = require("http");              // http server core module
+//var https = require('https'); 				// http server core module
+//var http    = require("http");              // http server core module
 var express = require("express");           // web framework external module
 var io      = require("socket.io");         // web socket external module
 var easyrtc = require("easyrtc");           // EasyRTC external module
@@ -17,7 +17,7 @@ var flash    = require('connect-flash');	//allows for passing session flashdata 
 var session = require('client-sessions');
 
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
-var httpApp = express();
+var app = express();
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -36,24 +36,24 @@ mongoose.connect(configDB.url); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
-httpApp.use(morgan('dev')); // log every request to the console
-httpApp.use(cookieParser()); // read cookies (needed for auth)
-httpApp.use(bodyParser()); // get information from html forms
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
 
-httpApp.set('view engine', 'ejs'); // set up ejs for templating
+app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-httpApp.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-httpApp.use(passport.initialize());
-httpApp.use(passport.session()); // persistent login sessions
-httpApp.use(flash()); // use connect-flash for flash messages stored in session
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./app/routes.js')(httpApp, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 
 //session
-httpApp.use(session({
+app.use(session({
 	  cookieName: 'session',
 	  secret: 'random_string_goes_here',
 	  duration: 30 * 60 * 1000,
@@ -61,26 +61,26 @@ httpApp.use(session({
 	}));
 
 //console.log(__dirname);
-//httpApp.use(express.static(__dirname + "/static/"));
-//httpApp.use(express.static("http://localhost:8080/reThink/" + "/static/"));
-//httpApp.use(express.static(__dirname +'../demo', 'client.html'));
+//app.use(express.static(__dirname + "/static/"));
+//app.use(express.static("http://localhost:8080/reThink/" + "/static/"));
+//app.use(express.static(__dirname +'../demo', 'client.html'));
 
 var User = require('./app/models/user');
 
-httpApp.get('/', function(req, res){
+app.get('/', function(req, res){
 	//console.log('/reThink/demo/client');
-		httpApp.use(express.static(path.join(__dirname)));
+		app.use(express.static(path.join(__dirname)));
 		res.sendFile(path.join(__dirname, 'init.html'));
 	});
 		
-httpApp.get('/consent', function(req, res){
+app.get('/consent', function(req, res){
 	//console.log('/reThink/demo/client');
-		httpApp.use(express.static(path.join(__dirname)));
+		app.use(express.static(path.join(__dirname)));
 		res.sendFile(path.join(__dirname, 'consent.html'));
 	});
 			
 
-httpApp.get('/reThink/demo/client', function(req, res){     //:id
+app.get('/reThink/demo/client', function(req, res){     //:id
 	//console.log('/reThink/demo/client');
 	/*if (req.session&&req.session.user){
 		//var mongoose = require('mongoose');
@@ -93,7 +93,7 @@ httpApp.get('/reThink/demo/client', function(req, res){     //:id
 		}
 		if (!err) {
 			res.locals.user = user;
-			httpApp.use(express.static(path.join(__dirname)));
+			app.use(express.static(path.join(__dirname)));
 			return res.sendFile(path.join(__dirname, 'client.html'));
 		} else {
 			
@@ -102,7 +102,7 @@ httpApp.get('/reThink/demo/client', function(req, res){     //:id
 			return res.send({error: 'Server error'});
 		}*/
 	  //var express=require('express');
-	  httpApp.use(express.static(path.join(__dirname)));
+	  app.use(express.static(path.join(__dirname)));
 	  res.sendFile(path.join(__dirname, 'client.html'));
 	//});
 		
@@ -110,14 +110,14 @@ httpApp.get('/reThink/demo/client', function(req, res){     //:id
 	
 });
 
-httpApp.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start Express http server on port 8080
-var webServer = http.createServer(httpApp)
-webServer.listen(8080);
-
+//var webServer = http.createServer(app)
+//webServer.listen(8080);
+var expressServer  = app.listen(port)
 // Start Socket.io so it attaches itself to Express server
-var socketServer = io.listen(webServer, {"log level":1});
+var socketServer = io.listen(expressServer, {"log level":1});
 
 easyrtc.setOption("logLevel", "debug");
 
@@ -145,7 +145,7 @@ easyrtc.events.on("roomJoin", function(connectionObj, roomName, roomParameter, c
 
 
 // Start EasyRTC server
-var rtc = easyrtc.listen(httpApp, socketServer, null, function(err, rtcRef) {
+var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
     console.log("Initiated");
 
     rtcRef.events.on("roomCreate", function(appObj, creatorConnectionObj, roomName, roomOptions, callback) {
@@ -156,6 +156,6 @@ var rtc = easyrtc.listen(httpApp, socketServer, null, function(err, rtcRef) {
 });
 
 //launch ======================================================================
-//httpApp.listen(port);
+//app.listen(port);
 console.log('The magic happens on port ' + port);
 
